@@ -21,7 +21,7 @@ def main():
     # Initialize pygame
     pygame.init()
 
-    map = pygame.image.load("map.png")
+    map = pygame.image.load("project_assets/map.png")
     # Store window width and height in different forms for easy access
     map_size = map.get_size()
     map_rect = map.get_rect()
@@ -33,19 +33,19 @@ def main():
     map_mask = pygame.mask.from_surface(map)
 
     # Create the player data
-    player = pygame.image.load("alien1.png").convert_alpha()
+    player = pygame.image.load("project_assets/alien1.png").convert_alpha()
     player = pygame.transform.smoothscale(player, (25, 25))
     player_rect = player.get_rect()
     player_mask = pygame.mask.from_surface(player)
 
-    key = pygame.image.load("key.png").convert_alpha()
+    key = pygame.image.load("project_assets/key.png").convert_alpha()
     key = pygame.transform.smoothscale(key, (25, 25))
     key_rect = key.get_rect()
     key_rect.center = (350, 400)
     key_mask = pygame.mask.from_surface(key)
 
 
-    door = pygame.image.load("door.png").convert_alpha()
+    door = pygame.image.load("project_assets/door.png").convert_alpha()
     door = pygame.transform.smoothscale(door, (200, 200))
     door_rect = door.get_rect()
     door_rect.center = (550, 200)
