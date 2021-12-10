@@ -58,7 +58,7 @@ def main():
     # key_mask = pygame.mask.from_surface(key)
 
     start_button = pygame.image.load("project_assets/start_button.png").convert_alpha()
-    start_button = pygame.transform.smoothscale(start_button, (25, 25))
+    start_button = pygame.transform.smoothscale(start_button, (150, 150))
     start_button_rect = start_button.get_rect()
     start_button_rect.center = (100, 600)
     start_button_mask = pygame.mask.from_surface(start_button)
@@ -85,13 +85,54 @@ def main():
     started = False
 
     # The is_alive variable records if anything bad has happened (off the path, touch guard, etc.)
-    is_alive = True
+    is_alive = False
 
-    # This state variable shows whether the key is found yet or not
-    found_key = False
+    # # This state variable shows whether the key is found yet or not
+    # found_key = False
 
     # Hide the arrow cursor and replace it with a sprite.
     pygame.mouse.set_visible(False)
+
+    # This Variable Records if the startbutton was pressed or not
+    started = False
+
+    # This is the before game loop. In it we must:
+    # - check for events
+    # - update the scene
+    # - draw the scene
+    while not started:
+        # Check events by looping over the list of events
+        for event in pygame.event.get():
+            # Check if start_button was pressed
+            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, start_button_mask, start_button_rect):
+                is_alive = True
+                started = True
+
+            # Position the player to the mouse location
+            pos = pygame.mouse.get_pos()
+            player_rect.center = pos
+            print(pos)
+
+            # Draw the background
+            screen.fill((250, 250, 250))
+            screen.blit(map, map_rect)
+
+            # Only draw the start_button and door if the key is not collected
+            screen.blit(start_button, start_button_rect)
+
+            # Draw the player character
+            screen.blit(player, player_rect)
+
+            # Every time through the loop, increase the frame count.
+            frame_count += 1
+
+            # Bring drawn changes to the front
+            pygame.display.update()
+
+            # This tries to force the loop to run at 30 fps
+            clock.tick(30)
+
+
 
     # This is the main game loop. In it we must:
     # - check for events
@@ -114,18 +155,19 @@ def main():
             print("colliding", frame_count) # Don't leave this in the game
 
 
-        # Check if we contact the key
-        if not found_key and pixel_collision(player_mask, player_rect, start_button_mask, start_button_rect):
-            found_key = True
+
+        # # Check if we contact the key
+        # if not found_key and pixel_collision(player_mask, player_rect, start_button_mask, start_button_rect):
+        #     found_key = True
 
         # Draw the background
         screen.fill((250,250,250))
         screen.blit(map, map_rect)
 
-        # Only draw the key and door if the key is not collected
-        if not found_key:
-            screen.blit(start_button, start_button_rect)
-        #     screen.blit(door, door_rect)
+        # # Only draw the start_button and door if the key is not collected
+        # if not found_key:
+        #     pass
+        #  screen.blit(door, door_rect)
 
         # Draw the player character
         screen.blit(player, player_rect)
