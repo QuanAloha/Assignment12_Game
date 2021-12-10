@@ -5,6 +5,17 @@ Description of Level:
 As a student, your first task of the day is to get to get your books from the Campus store. Watch out for the
 food trucks because you can spend your book money on food.
 
+General Description of Code:
+This code is divided up into 3 main parts.
+1. All the functions required to run the program are at the top.
+2. Below all the functions is a main function that is separated into 3 subsetions.
+    1. Laod all the game assets into variable that the code can work with.
+    2. Start the Pregame Section where the player can mover around and examine the map until they press the start
+        button.
+    3. After the start_button is pressed, the game begins and the payer has to make it ot he end of the maze to make it
+        to the next level.
+3. The Commands that call the code in order.
+
 The code in this file is written by Nathaniel Atwood and Megan Hays.This is a test.
 Any distribution of this code without written consent is strictly prohibited.
 """
