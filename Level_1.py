@@ -14,8 +14,8 @@ import sys, pygame, math
 # Starter code for an avoider game. Written by David Johnson for CS 1400 University of Utah.
 
 # Finished game authors:
-#
-#
+# Megan Hays
+# Nathaniel Atwood
 
 def pixel_collision(mask1, rect1, mask2, rect2):
     """
@@ -32,7 +32,7 @@ def main():
     # Initialize pygame
     pygame.init()
 
-    map = pygame.image.load("project_assets/map.png")
+    map = pygame.image.load("project_assets/map_1.png")
     # Store window width and height in different forms for easy access
     map_size = map.get_size()
     map_rect = map.get_rect()
@@ -44,26 +44,26 @@ def main():
     map_mask = pygame.mask.from_surface(map)
 
     # Create the player data
-    player = pygame.image.load("project_assets/alien1.png").convert_alpha()
+    player = pygame.image.load("project_assets/mario_running.png").convert_alpha()
     player = pygame.transform.smoothscale(player, (25, 25))
     player_rect = player.get_rect()
     player_mask = pygame.mask.from_surface(player)
 
-    key = pygame.image.load("project_assets/key.png").convert_alpha()
-    key = pygame.transform.smoothscale(key, (25, 25))
-    key_rect = key.get_rect()
-    key_rect.center = (350, 400)
-    key_mask = pygame.mask.from_surface(key)
+    # key = pygame.image.load("project_assets/key.png").convert_alpha()
+    # key = pygame.transform.smoothscale(key, (25, 25))
+    # key_rect = key.get_rect()
+    # key_rect.center = (350, 400)
+    # key_mask = pygame.mask.from_surface(key)
 
 
-    door = pygame.image.load("project_assets/door.png").convert_alpha()
-    door = pygame.transform.smoothscale(door, (200, 200))
-    door_rect = door.get_rect()
-    door_rect.center = (550, 200)
-    door_mask = pygame.mask.from_surface(door)
+    # door = pygame.image.load("project_assets/door.png").convert_alpha()
+    # door = pygame.transform.smoothscale(door, (200, 200))
+    # door_rect = door.get_rect()
+    # door_rect.center = (550, 200)
+    # door_mask = pygame.mask.from_surface(door)
 
     # The frame tells which sprite frame to draw
-    frame_count = 0;
+    frame_count = 0
 
     # The clock helps us manage the frames per second of the animation
     clock = pygame.time.Clock()
@@ -103,17 +103,17 @@ def main():
             print("colliding", frame_count) # Don't leave this in the game
 
         # Check if we contact the key
-        if not found_key and pixel_collision(player_mask, player_rect, key_mask, key_rect):
-            found_key = True
+        # if not found_key and pixel_collision(player_mask, player_rect, key_mask, key_rect):
+        #     found_key = True
 
         # Draw the background
         screen.fill((250,250,250))
         screen.blit(map, map_rect)
 
         # Only draw the key and door if the key is not collected
-        if not found_key:
-            screen.blit(key, key_rect)
-            screen.blit(door, door_rect)
+        # if not found_key:
+        #     screen.blit(key, key_rect)
+        #     screen.blit(door, door_rect)
 
         # Draw the player character
         screen.blit(player, player_rect)
