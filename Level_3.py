@@ -4,7 +4,7 @@ Assignment12_Game Level Three
 Description of Level:
 Congratulations! You finished your first class! Now it is time to go home and finish
 your homework because you are a good student. Watch out for the distractions along the way
-because you really need to get your homework done.
+because you really need to get your homework done. This is a test.
 
 The code in this file is written by Nathaniel Atwood and Megan Hays.
 Any distribution of this code without written consent is strictly prohibited.
