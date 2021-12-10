@@ -93,9 +93,6 @@ def main():
     # Hide the arrow cursor and replace it with a sprite.
     pygame.mouse.set_visible(False)
 
-    # This Variable Records if the startbutton was pressed or not
-    started = False
-
     # This is the before game loop. In it we must:
     # - check for events
     # - update the scene
@@ -151,7 +148,7 @@ def main():
 
         # See if we touch the maze walls
         if pixel_collision(player_mask, player_rect, map_mask, map_rect):
-            # is_alive = False
+            is_alive = False
             print("colliding", frame_count) # Don't leave this in the game
 
 
