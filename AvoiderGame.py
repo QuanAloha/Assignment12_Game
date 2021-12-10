@@ -40,7 +40,7 @@ def pixel_collision(mask1, rect1, mask2, rect2):
     return overlap
 
 def game_over():
-
+    pass
 
 def main():
 
