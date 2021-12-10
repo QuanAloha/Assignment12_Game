@@ -104,6 +104,8 @@ def main():
             # is_alive = False
             print("colliding", frame_count) # Don't leave this in the game
 
+
+
         # Check if we contact the key
         # if not found_key and pixel_collision(player_mask, player_rect, key_mask, key_rect):
         #     found_key = True
