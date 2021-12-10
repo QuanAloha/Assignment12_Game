@@ -64,30 +64,33 @@ def main():
     player_rect = player.get_rect()
     player_mask = pygame.mask.from_surface(player)
 
-
-    # key = pygame.image.load("project_assets/start_button.png").convert_alpha()
-    # key = pygame.transform.smoothscale(key, (25, 25))
-    # key_rect = key.get_rect()
-    # key_rect.center = (350, 400)
-    # key_mask = pygame.mask.from_surface(key)
-
+    # Create the Start Button data
     start_button = pygame.image.load("project_assets/start_button.png").convert_alpha()
     start_button = pygame.transform.smoothscale(start_button, (150, 150))
     start_button_rect = start_button.get_rect()
     start_button_rect.center = (100, 600)
     start_button_mask = pygame.mask.from_surface(start_button)
 
+    # Create Marriot Library data
     marriot_library = pygame.image.load("project_assets/marriot_library.png").convert_alpha()
     marriot_library = pygame.transform.smoothscale(marriot_library, (187.5, 125))
     marriot_library_rect = marriot_library.get_rect()
     marriot_library_rect.center = (975, 150)
     marriot_library_mask = pygame.mask.from_surface(marriot_library)
 
+    # Create ucard data
     ucard = pygame.image.load("project_assets/ucard.png").convert_alpha()
     ucard = pygame.transform.smoothscale(ucard, (300/4, 188/4))
     ucard_rect = ucard.get_rect()
     ucard_rect.center = (665, 136)
     ucard_mask = pygame.mask.from_surface(ucard)
+
+    # Create blockade data
+    blockade = pygame.image.load("project_assets/black_rectangle_vertical.png").convert_alpha()
+    blockade = pygame.transform.smoothscale(blockade, (985 / 4, 492 / 6))
+    blockade_rect = blockade.get_rect()
+    blockade_rect.center = (1100, 260)
+    blockade_mask = pygame.mask.from_surface(blockade)
 
     # The frame tells which sprite frame to draw
     frame_count = 0
@@ -169,9 +172,14 @@ def main():
         print(pos)
 
         # See if we touch the maze walls
-        if pixel_collision(player_mask, player_rect, map_mask, map_rect):
-            is_alive = False
-            print("colliding", frame_count) # Don't leave this in the game
+        if not found_ucard:
+            if pixel_collision(player_mask, player_rect, map_mask, map_rect) or pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
+                # is_alive = False
+                print("colliding", frame_count) # Don't leave this in the game
+            else:
+                if pixel_collision(player_mask, player_rect, map_mask, map_rect):
+                    # is_alive = False
+                    print("colliding", frame_count)  # Don't leave this in the game
 
         # Draw the background
         screen.fill((250,250,250))
@@ -179,7 +187,8 @@ def main():
 
         # Only draw the start_button and door if the key is not collected
         if not found_ucard:
-             screen.blit(ucard, ucard_rect)
+            screen.blit(ucard, ucard_rect)
+            screen.blit(blockade, blockade_rect)
 
         # Draw the player character
         screen.blit(player, player_rect)
