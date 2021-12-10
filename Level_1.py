@@ -50,6 +50,7 @@ def main():
     player_rect = player.get_rect()
     player_mask = pygame.mask.from_surface(player)
 
+
     # key = pygame.image.load("project_assets/start_button.png").convert_alpha()
     # key = pygame.transform.smoothscale(key, (25, 25))
     # key_rect = key.get_rect()
@@ -59,8 +60,9 @@ def main():
     start_button = pygame.image.load("project_assets/start_button.png").convert_alpha()
     start_button = pygame.transform.smoothscale(start_button, (25, 25))
     start_button_rect = start_button.get_rect()
-    start_button_rect.center = (350, 400)
+    start_button_rect.center = (100, 600)
     start_button_mask = pygame.mask.from_surface(start_button)
+
 
 
     # door = pygame.image.load("project_assets/door.png").convert_alpha()
@@ -104,6 +106,7 @@ def main():
         # Position the player to the mouse location
         pos = pygame.mouse.get_pos()
         player_rect.center = pos
+        print(pos)
 
         # See if we touch the maze walls
         if pixel_collision(player_mask, player_rect, map_mask, map_rect):
@@ -111,10 +114,9 @@ def main():
             print("colliding", frame_count) # Don't leave this in the game
 
 
-
         # Check if we contact the key
-        # if not found_key and pixel_collision(player_mask, player_rect, key_mask, key_rect):
-        #     found_key = True
+        if not found_key and pixel_collision(player_mask, player_rect, start_button_mask, start_button_rect):
+            found_key = True
 
         # Draw the background
         screen.fill((250,250,250))
