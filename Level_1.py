@@ -101,6 +101,7 @@ def main():
 
         # See if we touch the maze walls
         if pixel_collision(player_mask, player_rect, map_mask, map_rect):
+            # is_alive = False
             print("colliding", frame_count) # Don't leave this in the game
 
         # Check if we contact the key
