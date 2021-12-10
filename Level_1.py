@@ -123,12 +123,13 @@ def main():
         screen.blit(map, map_rect)
 
         # Only draw the key and door if the key is not collected
-        # if not found_key:
-        #     screen.blit(key, key_rect)
+        if not found_key:
+            screen.blit(start_button, start_button_rect)
         #     screen.blit(door, door_rect)
 
         # Draw the player character
         screen.blit(player, player_rect)
+
 
         # Write some text to the screen. You can do something like this to show some hints or whatever you want.
         # label = myfont.render("By David!", True, (255,255,0))
