@@ -8,8 +8,8 @@ food trucks because you can spend your book money on food.
 General Description of Code:
 This code is divided up into 3 main parts.
 1. All the functions required to run the program are at the top.
-2. Below all the functions is a main function that is separated into 3 subsetions.
-    1. Laod all the game assets into variable that the code can work with.
+2. Below all the functions is a main function that is separated into 3 subsections.
+    1. Load all the game assets into variable that the code can work with.
     2. Start the Pregame Section where the player can mover around and examine the map until they press the start
         button.
     3. After the start_button is pressed, the game begins and the payer has to make it ot he end of the maze to make it
@@ -20,13 +20,15 @@ The code in this file is written by Nathaniel Atwood and Megan Hays.This is a te
 Any distribution of this code without written consent is strictly prohibited.
 """
 
-import sys, pygame, math
+import sys
+import pygame
 
 # Starter code for an avoider game. Written by David Johnson for CS 1400 University of Utah.
 
 # Finished game authors:
 # Megan Hays
 # Nathaniel Atwood
+
 
 def pixel_collision(mask1, rect1, mask2, rect2):
     """
@@ -39,24 +41,26 @@ def pixel_collision(mask1, rect1, mask2, rect2):
     overlap = mask1.overlap(mask2, (offset_x, offset_y))
     return overlap
 
+
 def game_over():
     pass
+
 
 def main():
 
     # Initialize pygame
     pygame.init()
 
-    map = pygame.image.load("project_assets/map_1.png")
+    game_map = pygame.image.load("project_assets/map_1.png")
     # Store window width and height in different forms for easy access
-    map_size = map.get_size()
-    map_rect = map.get_rect()
+    map_size = game_map.get_size()
+    map_rect = game_map.get_rect()
 
     # create the window based on the map size
     screen = pygame.display.set_mode(map_size)
-    map = map.convert_alpha()
-    map.set_colorkey((255, 255, 255))
-    map_mask = pygame.mask.from_surface(map)
+    game_map = game_map.convert_alpha()
+    game_map.set_colorkey((255, 255, 255))
+    map_mask = pygame.mask.from_surface(game_map)
 
     # Create the player data
     player = pygame.image.load("project_assets/mario_running.png").convert_alpha()
@@ -98,10 +102,6 @@ def main():
     # The clock helps us manage the frames per second of the animation
     clock = pygame.time.Clock()
 
-    # Get a font - there is some problem on my Mac that makes this pause for 10s of seconds sometimes.
-    # I will see if I can find a fix.
-    myfont = pygame.font.SysFont('monospace', 24)
-
     # The started variable records if the start color has been clicked and the level started
     started = False
 
@@ -133,7 +133,7 @@ def main():
 
             # Draw the background
             screen.fill((250, 250, 250))
-            screen.blit(map, map_rect)
+            screen.blit(game_map, map_rect)
 
             # Only draw the start_button and door if the key is not collected
             screen.blit(start_button, start_button_rect)
@@ -149,7 +149,6 @@ def main():
 
             # This tries to force the loop to run at 30 fps
             clock.tick(30)
-
 
     # This is the main game loop. In it we must:
     # - check for events
@@ -173,17 +172,15 @@ def main():
 
         # See if we touch the maze walls
         if not found_ucard:
-            if pixel_collision(player_mask, player_rect, map_mask, map_rect) or pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
-                # is_alive = False
-                print("colliding", frame_count) # Don't leave this in the game
-            else:
-                if pixel_collision(player_mask, player_rect, map_mask, map_rect):
-                    # is_alive = False
-                    print("colliding", frame_count)  # Don't leave this in the game
+            if pixel_collision(player_mask, player_rect, map_mask, map_rect) or \
+                    pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
+                is_alive = False
+            elif pixel_collision(player_mask, player_rect, map_mask, map_rect):
+                is_alive = False
 
         # Draw the background
-        screen.fill((250,250,250))
-        screen.blit(map, map_rect)
+        screen.fill((250, 250, 250))
+        screen.blit(game_map, map_rect)
 
         # Only draw the start_button and door if the key is not collected
         if not found_ucard:
@@ -195,11 +192,6 @@ def main():
 
         # Draw the Library in the top right corner of the screen
         screen.blit(marriot_library, marriot_library_rect)
-
-
-        # Write some text to the screen. You can do something like this to show some hints or whatever you want.
-        # label = myfont.render("By David!", True, (255,255,0))
-        # screen.blit(label, (20,20))
 
         # Every time through the loop, increase the frame count.
         frame_count += 1
