@@ -129,7 +129,6 @@ def main():
             # Position the player to the mouse location
             pos = pygame.mouse.get_pos()
             player_rect.center = pos
-            print(pos)
 
             # Draw the background
             screen.fill((250, 250, 250))
@@ -168,7 +167,6 @@ def main():
         # Position the player to the mouse location
         pos = pygame.mouse.get_pos()
         player_rect.center = pos
-        print(pos)
 
         # See if we touch the maze walls
         if not found_ucard:
