@@ -50,11 +50,17 @@ def main():
     player_rect = player.get_rect()
     player_mask = pygame.mask.from_surface(player)
 
-    # key = pygame.image.load("project_assets/key.png").convert_alpha()
+    # key = pygame.image.load("project_assets/start_button.png").convert_alpha()
     # key = pygame.transform.smoothscale(key, (25, 25))
     # key_rect = key.get_rect()
     # key_rect.center = (350, 400)
     # key_mask = pygame.mask.from_surface(key)
+
+    start_button = pygame.image.load("project_assets/start_button.png").convert_alpha()
+    start_button = pygame.transform.smoothscale(start_button, (25, 25))
+    start_button_rect = start_button.get_rect()
+    start_button_rect.center = (350, 400)
+    start_button_mask = pygame.mask.from_surface(start_button)
 
 
     # door = pygame.image.load("project_assets/door.png").convert_alpha()
