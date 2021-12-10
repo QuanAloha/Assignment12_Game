@@ -1,14 +1,14 @@
 """
 Assignment12_Game Level One
 
-Description of Level:
-As a student, your first task of the day is to get to get your books from the Campus store. Watch out for the
-food trucks because you can spend your book money on food.
+Description of Game:
+It's Finals week, and you have a ton of stuff to take care of. Stay on the path and avoid all the obstacles so
+you can make it to the end.
 
 General Description of Code:
 This code is divided up into 3 main parts.
 1. All the functions required to run the program are at the top.
-2. Below all the functions is a main function that is separated into 3 subsections.
+2. Below all the functions is a main function  for each level that is separated into 3 subsections.
     1. Load all the game assets into variable that the code can work with.
     2. Start the Pregame Section where the player can mover around and examine the map until they press the start
         button.
@@ -40,6 +40,31 @@ def pixel_collision(mask1, rect1, mask2, rect2):
     # See if the two masks at the offset are overlapping.
     overlap = mask1.overlap(mask2, (offset_x, offset_y))
     return overlap
+
+
+def level_one_opener():
+    # Load Level Assets
+    game_map = pygame.image.load("project_assets/opener_1.png")
+    # Store window width and height in different forms for easy access
+    map_size = game_map.get_size()
+    map_rect = game_map.get_rect()
+
+    # create the window based on the map size
+    screen = pygame.display.set_mode(map_size)
+    game_map = game_map.convert_alpha()
+
+    # Draw the Map on top of the rectangle
+    screen.blit(game_map, map_rect)
+
+    # Variable to Check if player is ready
+    player_is_ready = False
+
+    # Check events by looping over the list of events
+    while not player_is_ready:
+        for event in pygame.event.get():
+            # Check if start_button was pressed
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                player_is_ready = True
 
 
 def level_one():
@@ -516,9 +541,10 @@ def game_over():
 def main():
     # Initialize pygame
     pygame.init()
-    level_one()
-    level_two()
-    level_three()
+    level_one_opener()
+    # level_one()
+    # level_two()
+    # level_three()
     pygame.quit()
     sys.exit()
 
