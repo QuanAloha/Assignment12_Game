@@ -21,6 +21,7 @@ def pixel_collision(mask1, rect1, mask2, rect2):
     """
     Check if the non-transparent pixels of one contacts the other.
     """
+
     offset_x = rect2[0] - rect1[0]
     offset_y = rect2[1] - rect1[1]
     # See if the two masks at the offset are overlapping.
@@ -119,8 +120,8 @@ def main():
         screen.blit(player, player_rect)
 
         # Write some text to the screen. You can do something like this to show some hints or whatever you want.
-        label = myfont.render("By David!", True, (255,255,0))
-        screen.blit(label, (20,20))
+        # label = myfont.render("By David!", True, (255,255,0))
+        # screen.blit(label, (20,20))
 
         # Every time through the loop, increase the frame count.
         frame_count += 1
