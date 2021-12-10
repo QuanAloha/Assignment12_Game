@@ -39,6 +39,9 @@ def pixel_collision(mask1, rect1, mask2, rect2):
     overlap = mask1.overlap(mask2, (offset_x, offset_y))
     return overlap
 
+def game_over():
+
+
 def main():
 
     # Initialize pygame
@@ -74,13 +77,17 @@ def main():
     start_button_rect.center = (100, 600)
     start_button_mask = pygame.mask.from_surface(start_button)
 
+    marriot_library = pygame.image.load("project_assets/marriot_library.png").convert_alpha()
+    marriot_library = pygame.transform.smoothscale(marriot_library, (187.5, 125))
+    marriot_library_rect = marriot_library.get_rect()
+    marriot_library_rect.center = (975, 150)
+    marriot_library_mask = pygame.mask.from_surface(marriot_library)
 
-
-    # door = pygame.image.load("project_assets/door.png").convert_alpha()
-    # door = pygame.transform.smoothscale(door, (200, 200))
-    # door_rect = door.get_rect()
-    # door_rect.center = (550, 200)
-    # door_mask = pygame.mask.from_surface(door)
+    ucard = pygame.image.load("project_assets/ucard.png").convert_alpha()
+    ucard = pygame.transform.smoothscale(ucard, (300/4, 188/4))
+    ucard_rect = ucard.get_rect()
+    ucard_rect.center = (665, 136)
+    ucard_mask = pygame.mask.from_surface(ucard)
 
     # The frame tells which sprite frame to draw
     frame_count = 0
@@ -98,8 +105,8 @@ def main():
     # The is_alive variable records if anything bad has happened (off the path, touch guard, etc.)
     is_alive = False
 
-    # # This state variable shows whether the key is found yet or not
-    # found_key = False
+    # # This state variable shows whether the uID Card is found yet or not
+    found_ucard = False
 
     # Hide the arrow cursor and replace it with a sprite.
     pygame.mouse.set_visible(False)
@@ -141,16 +148,20 @@ def main():
             clock.tick(30)
 
 
-
     # This is the main game loop. In it we must:
     # - check for events
     # - update the scene
     # - draw the scene
-    while is_alive:
+    while is_alive and started:
         # Check events by looping over the list of events
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                is_alive = False
+            # Check if Player made it to the library.
+            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, marriot_library_mask, marriot_library_rect) and found_ucard:
+                is_alive = True
+                started = False
+            # Check if the ucard is Collected
+            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, ucard_mask, ucard_rect):
+                found_ucard = True
 
         # Position the player to the mouse location
         pos = pygame.mouse.get_pos()
@@ -162,23 +173,19 @@ def main():
             is_alive = False
             print("colliding", frame_count) # Don't leave this in the game
 
-
-
-        # # Check if we contact the key
-        # if not found_key and pixel_collision(player_mask, player_rect, start_button_mask, start_button_rect):
-        #     found_key = True
-
         # Draw the background
         screen.fill((250,250,250))
         screen.blit(map, map_rect)
 
-        # # Only draw the start_button and door if the key is not collected
-        # if not found_key:
-        #     pass
-        #  screen.blit(door, door_rect)
+        # Only draw the start_button and door if the key is not collected
+        if not found_ucard:
+             screen.blit(ucard, ucard_rect)
 
         # Draw the player character
         screen.blit(player, player_rect)
+
+        # Draw the Library in the top right corner of the screen
+        screen.blit(marriot_library, marriot_library_rect)
 
 
         # Write some text to the screen. You can do something like this to show some hints or whatever you want.
