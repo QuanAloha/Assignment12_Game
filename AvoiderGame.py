@@ -1,5 +1,5 @@
 """
-Assignment12_Game Level One
+Assignment12_Game
 
 Description of Game:
 It's Finals week, and you have a ton of stuff to take care of. Stay on the path and avoid all the obstacles so
@@ -8,7 +8,7 @@ you can make it to the end.
 General Description of Code:
 This code is divided up into 3 main parts.
 1. All the functions required to run the program are at the top.
-2. Below all the functions is a main function  for each level that is separated into 3 subsections.
+2. Below all the functions is a main function for each level that is separated into 3 subsections.
     1. Load all the game assets into variable that the code can work with.
     2. Start the Pregame Section where the player can mover around and examine the map until they press the start
         button.
@@ -16,7 +16,7 @@ This code is divided up into 3 main parts.
         to the next level.
 3. The Commands that call the code in order.
 
-The code in this file is written by Nathaniel Atwood and Megan Hays.This is a test.
+The code in this file is written by Nathaniel Atwood and Megan Hays.
 Any distribution of this code without written consent is strictly prohibited.
 """
 
@@ -44,6 +44,7 @@ def pixel_collision(mask1, rect1, mask2, rect2):
 def end_game_level1():
     # Load end game
     game_map = pygame.image.load("project_assets/end_screen.png")
+
     # Store window width and height in different forms for easy access
     map_size = game_map.get_size()
     map_rect = game_map.get_rect()
@@ -221,7 +222,7 @@ def level_one():
     # # This state variable shows whether the uID Card is found yet or not
     found_ucard = False
 
-    # Hide the arrow cursor and replace it with a sprite.
+    # Hide the arrow cursor
     pygame.mouse.set_visible(False)
 
     # This is the before game loop. In it we must:
@@ -245,7 +246,7 @@ def level_one():
             screen.fill((250, 250, 250))
             screen.blit(game_map, map_rect)
 
-            # Only draw the start_button and door if the key is not collected
+            # draw start_button
             screen.blit(start_button, start_button_rect)
 
             # Draw the player character
@@ -299,7 +300,7 @@ def level_one():
         screen.fill((250, 250, 250))
         screen.blit(game_map, map_rect)
 
-        # Only draw the start_button and door if the key is not collected
+        # draw the start_button and door
         if not found_ucard:
             screen.blit(ucard, ucard_rect)
             screen.blit(blockade, blockade_rect)
@@ -307,7 +308,7 @@ def level_one():
         # Draw the player character
         screen.blit(player, player_rect)
 
-        # Draw the Library in the top right corner of the screen
+        # Draw the Library
         screen.blit(marriot_library, marriot_library_rect)
 
         # Every time through the loop, increase the frame count.
@@ -388,7 +389,7 @@ def level_two():
     ucard_rect.center = (98, 587)
     ucard_mask = pygame.mask.from_surface(ucard)
 
-    # Create coffe data
+    # Create coffee data
     coffee = pygame.image.load("project_assets/coffee.png").convert_alpha()
     coffee = pygame.transform.smoothscale(coffee, (1685 / 20, 2503 / 20))
     coffee_rect = coffee.get_rect()
@@ -466,7 +467,7 @@ def level_two():
     while is_alive and started:
         # Check events by looping over the list of events
         for event in pygame.event.get():
-            # Check if Player made it to the library.
+            # Check if Player made it to the cade lab
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, cade_lab_mask,
                                                                         cade_lab_rect) and found_ucard and found_coffee:
                 is_alive = True
@@ -483,24 +484,19 @@ def level_two():
         # Position the player to the mouse location
         pos = pygame.mouse.get_pos()
         player_rect.center = pos
-        print(pos)
 
         # See if we touch the maze walls
         if not found_ucard:
             if pixel_collision(player_mask, player_rect, map_mask, map_rect) or \
                     pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
                 is_alive = False
-                print('Colliding')
                 end_game_level2()
             elif pixel_collision(player_mask, player_rect, map_mask, map_rect):
                 is_alive = False
-                print('Colliding')
 
         if pixel_collision(player_mask, player_rect, map_mask, map_rect):
             is_alive = False
-            print('Colliding')
             end_game_level2()
-
 
         # Draw the background
         screen.fill((250, 250, 250))
@@ -518,7 +514,7 @@ def level_two():
         # Draw the player character
         screen.blit(player, player_rect)
 
-        # Draw the Library in the top right corner of the screen
+        # Draw the cade lab in the top right corner of the screen
         screen.blit(cade_lab, cade_lab_rect)
 
         # Every time through the loop, increase the frame count.
@@ -599,6 +595,7 @@ def level_three():
     snail_rect.center = (150, 510)
     snail_mask = pygame.mask.from_surface(snail)
 
+    # boss data aka david
     david = pygame.image.load("project_assets/david_johnson.png").convert_alpha()
     david = pygame.transform.smoothscale(david, (250 / 5, 250 / 5))
     david_rect = david.get_rect()
@@ -606,13 +603,13 @@ def level_three():
     david_mask = pygame.mask.from_surface(david)
     david_right = True
 
+    # fast david/boss
     fast_david = pygame.image.load("project_assets/fast_david.png").convert_alpha()
     fast_david = pygame.transform.smoothscale(david, (250 / 5, 250 / 5))
     fast_david_rect = david.get_rect()
     fast_david_rect.center = (950, 180)
     fast_david_mask = pygame.mask.from_surface(david)
     fast_david_right = True
-
 
     # The frame tells which sprite frame to draw
     frame_count = 0
@@ -653,7 +650,7 @@ def level_three():
             screen.fill((250, 250, 250))
             screen.blit(game_map, map_rect)
 
-            # Only draw the start_button and door if the key is not collected
+            # draw the start_button and door
             screen.blit(start_button, start_button_rect)
 
             # Draw the player character
@@ -675,7 +672,7 @@ def level_three():
     while is_alive and started:
         # Check events by looping over the list of events
         for event in pygame.event.get():
-            # Check if Player made it to the library.
+            # Check if Player made it to the car
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, car_mask,
                                                                         car_rect):
                 is_alive = True
@@ -688,7 +685,6 @@ def level_three():
         # Position the player to the mouse location
         pos = pygame.mouse.get_pos()
         player_rect.center = pos
-        print(pos)
 
         # See if we touch the maze walls
         if pixel_collision(player_mask, player_rect, david_mask, david_rect):
@@ -703,6 +699,7 @@ def level_three():
             is_alive = False
             end_game_level3()
 
+        # making david move
         if frame_count % 200 == 0:
             if david_right == True:
                 david_right = False
@@ -713,6 +710,7 @@ def level_three():
         if david_right == False:
             david_rect.move_ip((-2, 0))
 
+        # making fast david move and get slow
         if found_snail == False:
             if frame_count % 18 == 0:
                 if fast_david_right == True:
@@ -737,7 +735,6 @@ def level_three():
         # Draw the background
         screen.fill((250, 250, 250))
         screen.blit(game_map, map_rect)
-
 
         # Draw the player character
         screen.blit(player, player_rect)
@@ -774,7 +771,6 @@ def main():
     level_three()
     pygame.quit()
     sys.exit()
-
 
 # Start the program
 main()
