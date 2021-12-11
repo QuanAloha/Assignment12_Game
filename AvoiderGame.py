@@ -197,11 +197,15 @@ def level_one():
         if not found_ucard:
             if pixel_collision(player_mask, player_rect, map_mask, map_rect) or \
                     pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
-                # is_alive = False
+                is_alive = False
                 print('Colliding')
+                end_game()
             elif pixel_collision(player_mask, player_rect, map_mask, map_rect):
-                # is_alive = False
+                is_alive = False
                 print('Colliding')
+
+
+
         # Draw the background
         screen.fill((250, 250, 250))
         screen.blit(game_map, map_rect)
@@ -225,6 +229,35 @@ def level_one():
 
         # This tries to force the loop to run at 30 fps
         clock.tick(30)
+
+def end_game():
+    # Load end game
+    game_map = pygame.image.load("project_assets/end_screen.png")
+    # Store window width and height in different forms for easy access
+    map_size = game_map.get_size()
+    map_rect = game_map.get_rect()
+
+    # create the window based on the map size
+    screen = pygame.display.set_mode(map_size)
+    game_map = game_map.convert_alpha()
+
+    # Variable to Check if player is ready
+    player_is_ready = False
+
+    # Check events by looping over the list of events
+    while not player_is_ready:
+        for event in pygame.event.get():
+            # Check if start_button was pressed
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                player_is_ready = True
+
+        # Draw the background
+        screen.fill((250, 250, 250))
+        screen.blit(game_map, map_rect)
+
+        # Bring drawn changes to the front
+        pygame.display.update()
+        level_one()
 
 
 def level_two_opener():
@@ -312,7 +345,7 @@ def level_two():
     started = False
 
     # The is_alive variable records if anything bad has happened (off the path, touch guard, etc.)
-    is_alive = False
+    
 
     # # This state variable shows whether the uID Card is found yet or not
     found_ucard = False
@@ -566,10 +599,10 @@ def level_three():
         if not found_ucard:
             if pixel_collision(player_mask, player_rect, map_mask, map_rect) or \
                     pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
-                # is_alive = False
+                #is_alive = False
                 print('Colliding')
             elif pixel_collision(player_mask, player_rect, map_mask, map_rect):
-                # is_alive = False
+                #is_alive = False
                 print('Colliding')
 
         # Draw the background
