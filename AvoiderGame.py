@@ -204,6 +204,12 @@ def level_one():
                 is_alive = False
                 print('Colliding')
 
+        if pixel_collision(player_mask, player_rect, map_mask, map_rect):
+            is_alive = False
+            print('Colliding')
+            end_game()
+
+
 
 
         # Draw the background
