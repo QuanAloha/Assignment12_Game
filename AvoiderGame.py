@@ -53,9 +53,6 @@ def level_one_opener():
     screen = pygame.display.set_mode(map_size)
     game_map = game_map.convert_alpha()
 
-    # Draw the Map on top of the rectangle
-    screen.blit(game_map, map_rect)
-
     # Variable to Check if player is ready
     player_is_ready = False
 
@@ -65,6 +62,13 @@ def level_one_opener():
             # Check if start_button was pressed
             if event.type == pygame.MOUSEBUTTONDOWN:
                 player_is_ready = True
+
+        # Draw the background
+        screen.fill((250, 250, 250))
+        screen.blit(game_map, map_rect)
+
+        # Bring drawn changes to the front
+        pygame.display.update()
 
 
 def level_one():
@@ -223,6 +227,35 @@ def level_one():
         clock.tick(30)
 
 
+def level_two_opener():
+    # Load Level Assets
+    game_map = pygame.image.load("project_assets/opener_2.png")
+    # Store window width and height in different forms for easy access
+    map_size = game_map.get_size()
+    map_rect = game_map.get_rect()
+
+    # create the window based on the map size
+    screen = pygame.display.set_mode(map_size)
+    game_map = game_map.convert_alpha()
+
+    # Variable to Check if player is ready
+    player_is_ready = False
+
+    # Check events by looping over the list of events
+    while not player_is_ready:
+        for event in pygame.event.get():
+            # Check if start_button was pressed
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                player_is_ready = True
+
+        # Draw the background
+        screen.fill((250, 250, 250))
+        screen.blit(game_map, map_rect)
+
+        # Bring drawn changes to the front
+        pygame.display.update()
+
+
 def level_two():
     game_map = pygame.image.load("project_assets/map_2.png")
     # Store window width and height in different forms for easy access
@@ -377,6 +410,35 @@ def level_two():
 
         # This tries to force the loop to run at 30 fps
         clock.tick(30)
+
+
+def level_three_opener():
+    # Load Level Assets
+    game_map = pygame.image.load("project_assets/opener_3.png")
+    # Store window width and height in different forms for easy access
+    map_size = game_map.get_size()
+    map_rect = game_map.get_rect()
+
+    # create the window based on the map size
+    screen = pygame.display.set_mode(map_size)
+    game_map = game_map.convert_alpha()
+
+    # Variable to Check if player is ready
+    player_is_ready = False
+
+    # Check events by looping over the list of events
+    while not player_is_ready:
+        for event in pygame.event.get():
+            # Check if start_button was pressed
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                player_is_ready = True
+
+        # Draw the background
+        screen.fill((250, 250, 250))
+        screen.blit(game_map, map_rect)
+
+        # Bring drawn changes to the front
+        pygame.display.update()
 
 
 def level_three():
@@ -542,9 +604,9 @@ def main():
     # Initialize pygame
     pygame.init()
     level_one_opener()
-    # level_one()
-    # level_two()
-    # level_three()
+    level_one()
+    level_two()
+    level_three()
     pygame.quit()
     sys.exit()
 
