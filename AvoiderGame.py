@@ -685,10 +685,10 @@ def level_three():
         if not found_ucard:
             if pixel_collision(player_mask, player_rect, map_mask, map_rect) or \
                     pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
-                #is_alive = False
+                # is_alive = False
                 print('Colliding')
             elif pixel_collision(player_mask, player_rect, map_mask, map_rect):
-                #is_alive = False
+                # is_alive = False
                 print('Colliding')
 
         # Draw the background
