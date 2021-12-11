@@ -41,6 +41,7 @@ def pixel_collision(mask1, rect1, mask2, rect2):
     overlap = mask1.overlap(mask2, (offset_x, offset_y))
     return overlap
 
+
 def end_game_level1():
     # Load end game
     game_map = pygame.image.load("project_assets/end_screen.png")
@@ -130,6 +131,7 @@ def end_game_level3():
         # Bring drawn changes to the front
         pygame.display.update()
         level_three()
+
 
 def level_one_opener():
     # Load Level Assets
@@ -759,6 +761,7 @@ def level_three():
 
         # This tries to force the loop to run at 30 fps
         clock.tick(30)
+
 
 def main():
     # Initialize pygame
