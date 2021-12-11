@@ -41,6 +41,92 @@ def pixel_collision(mask1, rect1, mask2, rect2):
     overlap = mask1.overlap(mask2, (offset_x, offset_y))
     return overlap
 
+def end_game_level1():
+    # Load end game
+    game_map = pygame.image.load("project_assets/end_screen.png")
+    # Store window width and height in different forms for easy access
+    map_size = game_map.get_size()
+    map_rect = game_map.get_rect()
+
+    # create the window based on the map size
+    screen = pygame.display.set_mode(map_size)
+    game_map = game_map.convert_alpha()
+
+    # Variable to Check if player is ready
+    player_is_ready = False
+
+    # Check events by looping over the list of events
+    while not player_is_ready:
+        for event in pygame.event.get():
+            # Check if start_button was pressed
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                player_is_ready = True
+
+        # Draw the background
+        screen.fill((250, 250, 250))
+        screen.blit(game_map, map_rect)
+
+        # Bring drawn changes to the front
+        pygame.display.update()
+        level_one()
+
+def end_game_level2():
+    # Load end game
+    game_map = pygame.image.load("project_assets/end_screen.png")
+    # Store window width and height in different forms for easy access
+    map_size = game_map.get_size()
+    map_rect = game_map.get_rect()
+
+    # create the window based on the map size
+    screen = pygame.display.set_mode(map_size)
+    game_map = game_map.convert_alpha()
+
+    # Variable to Check if player is ready
+    player_is_ready = False
+
+    # Check events by looping over the list of events
+    while not player_is_ready:
+        for event in pygame.event.get():
+            # Check if start_button was pressed
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                player_is_ready = True
+
+        # Draw the background
+        screen.fill((250, 250, 250))
+        screen.blit(game_map, map_rect)
+
+        # Bring drawn changes to the front
+        pygame.display.update()
+        level_two()
+
+def end_game_level3():
+    # Load end game
+    game_map = pygame.image.load("project_assets/end_screen.png")
+    # Store window width and height in different forms for easy access
+    map_size = game_map.get_size()
+    map_rect = game_map.get_rect()
+
+    # create the window based on the map size
+    screen = pygame.display.set_mode(map_size)
+    game_map = game_map.convert_alpha()
+
+    # Variable to Check if player is ready
+    player_is_ready = False
+
+    # Check events by looping over the list of events
+    while not player_is_ready:
+        for event in pygame.event.get():
+            # Check if start_button was pressed
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                player_is_ready = True
+
+        # Draw the background
+        screen.fill((250, 250, 250))
+        screen.blit(game_map, map_rect)
+
+        # Bring drawn changes to the front
+        pygame.display.update()
+        level_three()
 
 def level_one_opener():
     # Load Level Assets
@@ -181,7 +267,7 @@ def level_one():
         for event in pygame.event.get():
             # Check if Player made it to the library.
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, marriot_library_mask,
-                                                                        marriot_library_rect) and found_ucard:
+                                                                        marriot_library_rect):
                 is_alive = True
                 started = False
             # Check if the ucard is Collected
@@ -199,14 +285,13 @@ def level_one():
                     pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
                 is_alive = False
                 print('Colliding')
-                end_game()
+                end_game_level1()
 
+        # See if we touch maze walls after getting Ucard
         if pixel_collision(player_mask, player_rect, map_mask, map_rect):
             is_alive = False
             print('Colliding')
-            end_game()
-
-
+            end_game_level1()
 
         # Draw the background
         screen.fill((250, 250, 250))
@@ -231,35 +316,6 @@ def level_one():
 
         # This tries to force the loop to run at 30 fps
         clock.tick(30)
-
-def end_game():
-    # Load end game
-    game_map = pygame.image.load("project_assets/end_screen.png")
-    # Store window width and height in different forms for easy access
-    map_size = game_map.get_size()
-    map_rect = game_map.get_rect()
-
-    # create the window based on the map size
-    screen = pygame.display.set_mode(map_size)
-    game_map = game_map.convert_alpha()
-
-    # Variable to Check if player is ready
-    player_is_ready = False
-
-    # Check events by looping over the list of events
-    while not player_is_ready:
-        for event in pygame.event.get():
-            # Check if start_button was pressed
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                player_is_ready = True
-
-        # Draw the background
-        screen.fill((250, 250, 250))
-        screen.blit(game_map, map_rect)
-
-        # Bring drawn changes to the front
-        pygame.display.update()
-        level_one()
 
 
 def level_two_opener():
@@ -313,28 +369,35 @@ def level_two():
     start_button = pygame.image.load("project_assets/start_button.png").convert_alpha()
     start_button = pygame.transform.smoothscale(start_button, (150, 150))
     start_button_rect = start_button.get_rect()
-    start_button_rect.center = (100, 600)
+    start_button_rect.center = (1050, 63)
     start_button_mask = pygame.mask.from_surface(start_button)
 
-    # Create Marriot Library data
-    marriot_library = pygame.image.load("project_assets/marriot_library.png").convert_alpha()
-    marriot_library = pygame.transform.smoothscale(marriot_library, (187.5, 125))
-    marriot_library_rect = marriot_library.get_rect()
-    marriot_library_rect.center = (975, 150)
-    marriot_library_mask = pygame.mask.from_surface(marriot_library)
+    # Create Cade Lab data
+    cade_lab = pygame.image.load("project_assets/cade_lab.png").convert_alpha()
+    cade_lab = pygame.transform.smoothscale(cade_lab, (187.5, 125))
+    cade_lab_rect = cade_lab.get_rect()
+    cade_lab_rect.center = (1050, 350)
+    cade_lab_mask = pygame.mask.from_surface(cade_lab)
 
     # Create ucard data
     ucard = pygame.image.load("project_assets/ucard.png").convert_alpha()
     ucard = pygame.transform.smoothscale(ucard, (300 / 4, 188 / 4))
     ucard_rect = ucard.get_rect()
-    ucard_rect.center = (665, 136)
+    ucard_rect.center = (98, 587)
     ucard_mask = pygame.mask.from_surface(ucard)
+
+    # Create coffe data
+    coffee = pygame.image.load("project_assets/coffee.png").convert_alpha()
+    coffee = pygame.transform.smoothscale(coffee, (1685 / 20, 2503 / 20))
+    coffee_rect = coffee.get_rect()
+    coffee_rect.center = (1080, 580)
+    coffee_mask = pygame.mask.from_surface(coffee)
 
     # Create blockade data
     blockade = pygame.image.load("project_assets/black_rectangle_vertical.png").convert_alpha()
     blockade = pygame.transform.smoothscale(blockade, (985 / 4, 492 / 6))
     blockade_rect = blockade.get_rect()
-    blockade_rect.center = (1100, 260)
+    blockade_rect.center = (1048, 209)
     blockade_mask = pygame.mask.from_surface(blockade)
 
     # The frame tells which sprite frame to draw
@@ -349,8 +412,11 @@ def level_two():
     # The is_alive variable records if anything bad has happened (off the path, touch guard, etc.)
     
 
-    # # This state variable shows whether the uID Card is found yet or not
+    # This state variable shows whether the uID Card is found yet or not
     found_ucard = False
+
+    # This state variable shows whether the coffee is found yet or not
+    found_coffee = False
 
     # Hide the arrow cursor and replace it with a sprite.
     pygame.mouse.set_visible(False)
@@ -399,18 +465,23 @@ def level_two():
         # Check events by looping over the list of events
         for event in pygame.event.get():
             # Check if Player made it to the library.
-            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, marriot_library_mask,
-                                                                        marriot_library_rect) and found_ucard:
+            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, cade_lab_mask,
+                                                                        cade_lab_rect) and found_ucard and found_coffee:
                 is_alive = True
                 started = False
             # Check if the ucard is Collected
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, ucard_mask,
                                                                         ucard_rect):
                 found_ucard = True
+            # Check if coffee is collected
+            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, coffee_mask,
+                                                                        coffee_rect):
+                found_coffee = True
 
         # Position the player to the mouse location
         pos = pygame.mouse.get_pos()
         player_rect.center = pos
+        print(pos)
 
         # See if we touch the maze walls
         if not found_ucard:
@@ -418,24 +489,35 @@ def level_two():
                     pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
                 is_alive = False
                 print('Colliding')
+                end_game_level2()
             elif pixel_collision(player_mask, player_rect, map_mask, map_rect):
                 is_alive = False
                 print('Colliding')
+
+        if pixel_collision(player_mask, player_rect, map_mask, map_rect):
+            is_alive = False
+            print('Colliding')
+            end_game_level2()
+
 
         # Draw the background
         screen.fill((250, 250, 250))
         screen.blit(game_map, map_rect)
 
-        # Only draw the start_button and door if the key is not collected
+        # Checking if ucard is not found
         if not found_ucard:
             screen.blit(ucard, ucard_rect)
             screen.blit(blockade, blockade_rect)
+
+        # Checking if coffee is not found
+        if not found_coffee:
+            screen.blit(coffee, coffee_rect)
 
         # Draw the player character
         screen.blit(player, player_rect)
 
         # Draw the Library in the top right corner of the screen
-        screen.blit(marriot_library, marriot_library_rect)
+        screen.blit(cade_lab, cade_lab_rect)
 
         # Every time through the loop, increase the frame count.
         frame_count += 1
