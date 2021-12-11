@@ -596,6 +596,7 @@ def level_three():
         # This tries to force the loop to run at 30 fps
         clock.tick(30)
 
+
 def game_over():
     pass
 
@@ -605,7 +606,9 @@ def main():
     pygame.init()
     level_one_opener()
     level_one()
+    level_two_opener()
     level_two()
+    level_three_opener()
     level_three()
     pygame.quit()
     sys.exit()
