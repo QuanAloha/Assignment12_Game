@@ -41,7 +41,6 @@ def pixel_collision(mask1, rect1, mask2, rect2):
     overlap = mask1.overlap(mask2, (offset_x, offset_y))
     return overlap
 
-
 def end_game_level1():
     # Load end game
     game_map = pygame.image.load("project_assets/end_screen.png")
@@ -131,7 +130,6 @@ def end_game_level3():
         # Bring drawn changes to the front
         pygame.display.update()
         level_three()
-
 
 def level_one_opener():
     # Load Level Assets
@@ -272,9 +270,11 @@ def level_one():
         for event in pygame.event.get():
             # Check if Player made it to the library.
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, marriot_library_mask,
-                                                                        marriot_library_rect) and found_ucard:
+                                                                        marriot_library_rect):
                 is_alive = True
                 started = False
+                level_two_opener()
+
             # Check if the ucard is Collected
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, ucard_mask,
                                                                         ucard_rect):
@@ -351,6 +351,7 @@ def level_two_opener():
         # Bring drawn changes to the front
         pygame.display.update()
 
+    level_two()
 
 def level_two():
     game_map = pygame.image.load("project_assets/map_2.png")
@@ -474,10 +475,13 @@ def level_two():
                                                                         cade_lab_rect) and found_ucard and found_coffee:
                 is_alive = True
                 started = False
+                level_three_opener()
+
             # Check if the ucard is Collected
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, ucard_mask,
                                                                         ucard_rect):
                 found_ucard = True
+
             # Check if coffee is collected
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, coffee_mask,
                                                                         coffee_rect):
@@ -556,6 +560,8 @@ def level_three_opener():
 
         # Bring drawn changes to the front
         pygame.display.update()
+
+    level_three()
 
 
 def level_three():
@@ -679,6 +685,8 @@ def level_three():
                                                                         car_rect):
                 is_alive = True
                 started = False
+                you_win()
+
             # Check if the snail is Collected
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, snail_mask,
                                                                         snail_rect):
@@ -762,18 +770,42 @@ def level_three():
         # This tries to force the loop to run at 30 fps
         clock.tick(30)
 
+def you_win():
+    # Load Level Assets
+    game_map = pygame.image.load("project_assets/winner.png")
+    # Store window width and height in different forms for easy access
+    map_size = game_map.get_size()
+    map_rect = game_map.get_rect()
+
+    # create the window based on the map size
+    screen = pygame.display.set_mode(map_size)
+    game_map = game_map.convert_alpha()
+
+    # Variable to Check if player is ready
+    player_is_ready = False
+
+    # Check events by looping over the list of events
+    while not player_is_ready:
+        for event in pygame.event.get():
+            # Check if start_button was pressed
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                player_is_ready = True
+
+        # Draw the background
+        screen.fill((250, 250, 250))
+        screen.blit(game_map, map_rect)
+
+        # Bring drawn changes to the front
+        pygame.display.update()
+    pygame.quit()
+    sys.exit()
+
 
 def main():
     # Initialize pygame
     pygame.init()
     level_one_opener()
     level_one()
-    level_two_opener()
-    level_two()
-    level_three_opener()
-    level_three()
-    pygame.quit()
-    sys.exit()
 
 # Start the program
 main()
