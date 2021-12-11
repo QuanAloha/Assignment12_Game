@@ -41,7 +41,6 @@ def pixel_collision(mask1, rect1, mask2, rect2):
     overlap = mask1.overlap(mask2, (offset_x, offset_y))
     return overlap
 
-
 def end_game_level1():
     # Load end game
     game_map = pygame.image.load("project_assets/end_screen.png")
@@ -100,6 +99,7 @@ def end_game_level2():
         # Bring drawn changes to the front
         pygame.display.update()
         level_two()
+
 
 def end_game_level3():
     # Load end game
@@ -582,29 +582,37 @@ def level_three():
     start_button = pygame.image.load("project_assets/start_button.png").convert_alpha()
     start_button = pygame.transform.smoothscale(start_button, (150, 150))
     start_button_rect = start_button.get_rect()
-    start_button_rect.center = (100, 600)
+    start_button_rect.center = (75, 61)
     start_button_mask = pygame.mask.from_surface(start_button)
 
-    # Create Marriot Library data
-    marriot_library = pygame.image.load("project_assets/marriot_library.png").convert_alpha()
-    marriot_library = pygame.transform.smoothscale(marriot_library, (187.5, 125))
-    marriot_library_rect = marriot_library.get_rect()
-    marriot_library_rect.center = (975, 150)
-    marriot_library_mask = pygame.mask.from_surface(marriot_library)
+    # Create car data
+    car = pygame.image.load("project_assets/car.png").convert_alpha()
+    car = pygame.transform.smoothscale(car, (187.5, 125))
+    car_rect = car.get_rect()
+    car_rect.center = (429, 460)
+    car_mask = pygame.mask.from_surface(car)
 
-    # Create ucard data
-    ucard = pygame.image.load("project_assets/ucard.png").convert_alpha()
-    ucard = pygame.transform.smoothscale(ucard, (300 / 4, 188 / 4))
-    ucard_rect = ucard.get_rect()
-    ucard_rect.center = (665, 136)
-    ucard_mask = pygame.mask.from_surface(ucard)
+    # Create snail data
+    snail = pygame.image.load("project_assets/snail.png").convert_alpha()
+    snail = pygame.transform.smoothscale(snail, (300 / 4, 188 / 4))
+    snail_rect = snail.get_rect()
+    snail_rect.center = (150, 510)
+    snail_mask = pygame.mask.from_surface(snail)
 
-    # Create blockade data
-    blockade = pygame.image.load("project_assets/black_rectangle_vertical.png").convert_alpha()
-    blockade = pygame.transform.smoothscale(blockade, (985 / 4, 492 / 6))
-    blockade_rect = blockade.get_rect()
-    blockade_rect.center = (1100, 260)
-    blockade_mask = pygame.mask.from_surface(blockade)
+    david = pygame.image.load("project_assets/david_johnson.png").convert_alpha()
+    david = pygame.transform.smoothscale(david, (250 / 5, 250 / 5))
+    david_rect = david.get_rect()
+    david_rect.center = (200, 200)
+    david_mask = pygame.mask.from_surface(david)
+    david_right = True
+
+    fast_david = pygame.image.load("project_assets/fast_david.png").convert_alpha()
+    fast_david = pygame.transform.smoothscale(david, (250 / 5, 250 / 5))
+    fast_david_rect = david.get_rect()
+    fast_david_rect.center = (950, 180)
+    fast_david_mask = pygame.mask.from_surface(david)
+    fast_david_right = True
+
 
     # The frame tells which sprite frame to draw
     frame_count = 0
@@ -618,8 +626,8 @@ def level_three():
     # The is_alive variable records if anything bad has happened (off the path, touch guard, etc.)
     is_alive = False
 
-    # # This state variable shows whether the uID Card is found yet or not
-    found_ucard = False
+    # # This state variable shows whether the snail is found yet or not
+    found_snail = False
 
     # Hide the arrow cursor and replace it with a sprite.
     pygame.mouse.set_visible(False)
@@ -668,43 +676,83 @@ def level_three():
         # Check events by looping over the list of events
         for event in pygame.event.get():
             # Check if Player made it to the library.
-            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, marriot_library_mask,
-                                                                        marriot_library_rect) and found_ucard:
+            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, car_mask,
+                                                                        car_rect):
                 is_alive = True
                 started = False
-            # Check if the ucard is Collected
-            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, ucard_mask,
-                                                                        ucard_rect):
-                found_ucard = True
+            # Check if the snail is Collected
+            if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, snail_mask,
+                                                                        snail_rect):
+                found_snail = True
 
         # Position the player to the mouse location
         pos = pygame.mouse.get_pos()
         player_rect.center = pos
+        print(pos)
 
         # See if we touch the maze walls
-        if not found_ucard:
-            if pixel_collision(player_mask, player_rect, map_mask, map_rect) or \
-                    pixel_collision(player_mask, player_rect, blockade_mask, blockade_rect):
-                # is_alive = False
-                print('Colliding')
-            elif pixel_collision(player_mask, player_rect, map_mask, map_rect):
-                # is_alive = False
-                print('Colliding')
+        if pixel_collision(player_mask, player_rect, david_mask, david_rect):
+            is_alive = False
+            end_game_level3()
+
+        if pixel_collision(player_mask, player_rect, fast_david_mask, fast_david_rect):
+            is_alive = False
+            end_game_level3()
+
+        if pixel_collision(player_mask, player_rect, map_mask, map_rect):
+            is_alive = False
+            end_game_level3()
+
+        if frame_count % 200 == 0:
+            if david_right == True:
+                david_right = False
+            elif david_right == False:
+                david_right = True
+        if david_right == True:
+            david_rect.move_ip((2, 0))
+        if david_right == False:
+            david_rect.move_ip((-2, 0))
+
+        if found_snail == False:
+            if frame_count % 18 == 0:
+                if fast_david_right == True:
+                    fast_david_right = False
+                elif fast_david_right == False:
+                    fast_david_right = True
+            if fast_david_right == True:
+                fast_david_rect.move_ip((12, 0))
+            if fast_david_right == False:
+                fast_david_rect.move_ip((-12, 0))
+        elif found_snail == True:
+            if frame_count % 200 == 0:
+                if fast_david_right == True:
+                    fast_david_right = False
+                elif fast_david_right == False:
+                    fast_david_right = True
+            if fast_david_right == True:
+                fast_david_rect.move_ip((2, 0))
+            if fast_david_right == False:
+                fast_david_rect.move_ip((-2, 0))
 
         # Draw the background
         screen.fill((250, 250, 250))
         screen.blit(game_map, map_rect)
 
-        # Only draw the start_button and door if the key is not collected
-        if not found_ucard:
-            screen.blit(ucard, ucard_rect)
-            screen.blit(blockade, blockade_rect)
 
         # Draw the player character
         screen.blit(player, player_rect)
 
-        # Draw the Library in the top right corner of the screen
-        screen.blit(marriot_library, marriot_library_rect)
+        # Draw the car
+        screen.blit(car, car_rect)
+
+        # Draw david
+        screen.blit(david, david_rect)
+
+        # Draw fast david
+        screen.blit(fast_david, fast_david_rect)
+
+        # Draw snail
+        screen.blit(snail, snail_rect)
 
         # Every time through the loop, increase the frame count.
         frame_count += 1
