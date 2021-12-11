@@ -269,7 +269,7 @@ def level_one():
         for event in pygame.event.get():
             # Check if Player made it to the library.
             if event.type == pygame.MOUSEBUTTONDOWN and pixel_collision(player_mask, player_rect, marriot_library_mask,
-                                                                        marriot_library_rect):
+                                                                        marriot_library_rect) and found_ucard:
                 is_alive = True
                 started = False
             # Check if the ucard is Collected
@@ -412,7 +412,7 @@ def level_two():
     started = False
 
     # The is_alive variable records if anything bad has happened (off the path, touch guard, etc.)
-    
+    is_alive = True
 
     # This state variable shows whether the uID Card is found yet or not
     found_ucard = False
